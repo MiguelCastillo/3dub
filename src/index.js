@@ -10,14 +10,14 @@ const pluginLoader = require("./pluginLoader");
 
 function start(options) {
   options = options || {};
-  var config = Object.assign({}, loadSettings(path.join(process.cwd(), options.config || ".servup")), options);
+  var config = Object.assign({}, loadSettings(path.join(process.cwd(), options.config || ".serveup")), options);
   var port = process.env.PORT || config.port || 3000;
   var app = express();
 
   getMiddlewares(app, config).forEach((middleware) => app.use(middleware));
 
   app.listen(port);
-  console.log("... Servup listening on %s ...", port);
+  console.log("... Servup listening on %s", port);
   return app;
 }
 
