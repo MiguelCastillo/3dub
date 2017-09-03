@@ -1,2 +1,2 @@
-# connect-dev-server
-Development server based on connect with livereload for SPA
+# serveup
+Development server based on express with livereload for SPA

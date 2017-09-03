@@ -1,0 +1,24 @@
+{
+  "name": "serveup",
+  "version": "0.0.1",
+  "description": "www dev server based on express with livereload for SPA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "serveup": "bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiguelCastillo/serveup.git"
+  },
+  "author": "Miguel Castillo <manchagnu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MiguelCastillo/serveup/issues"
+  },
+  "homepage": "https://github.com/MiguelCastillo/serveup#readme",
+  "dependencies": {
+  }
+}
