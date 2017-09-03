@@ -6,6 +6,7 @@ const livereload = require("connect-livereload");
 const tinylr = require("tiny-lr");
 const proxy = require("node-proxy-middleware");
 const url = require("url");
+const chokidar = require("chokidar");
 const pluginLoader = require("./pluginLoader");
 
 function start(options) {
@@ -23,9 +24,10 @@ function start(options) {
 
 function getMiddlewares(app, options) {
   var middlewares = [bodyParser.urlencoded({ extended: false }), bodyParser.json()];
+  var root = path.join(process.cwd(), options.root || "public");
 
   if (options.static !== false) {
-    middlewares.unshift(express.static(path.join(process.cwd(), options.root || "public")));
+    middlewares.unshift(express.static(root));
   }
 
   // Configure fallback to handle SPA configurations
@@ -33,7 +35,7 @@ function getMiddlewares(app, options) {
     middlewares.unshift(fallback(options.fallback));
   }
 
-  // Liverealod!!
+  // Liverealod and file watching!!
   if (options.livereload !== false) {
     var client = Object.assign({port: 35729}, options.livereload, options.livereload ? options.livereload.client : {});
     middlewares.unshift(livereload(client));
@@ -42,6 +44,26 @@ function getMiddlewares(app, options) {
     tinylr().listen(server.port, function() {
       console.log("... Livereload listening on %s", server.port);
     });
+
+    if (options.watch !== false) {
+      if (options.watch === true) {
+        options = {};
+      }
+
+      var files = options.files || root;
+      console.log("... Watching %s", files);
+
+      chokidar
+        .watch(files, options)
+        .on("add", filepath => {
+          console.log(`File ${filepath} has been added`);
+          tinylr.changed(filepath);
+        })
+        .on("change", filepath => {
+          console.log(`File ${filepath} has been changed`);
+          tinylr.changed(filepath);
+        });
+    }
   }
 
   // Reverse proxies for forwarding request to other end points.
