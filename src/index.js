@@ -15,15 +15,13 @@ function start(options) {
   var config = Object.assign({}, loadSettings(path.join(process.cwd(), options.config || ".serveup")), options);
   var port = process.env.PORT || config.port || 3000;
   var app = express();
-
-  getMiddlewares(app, config).forEach((middleware) => app.use(middleware));
-
+  configureApp(app, config);
   app.listen(port);
   console.log("... Servup listening on %s", port);
   return app;
 }
 
-function getMiddlewares(app, options) {
+function configureApp(app, options) {
   var middlewares = [bodyParser.urlencoded({ extended: false }), bodyParser.json()];
   var root = path.join(process.cwd(), options.root || "public");
 
@@ -87,7 +85,7 @@ function getMiddlewares(app, options) {
     pluginLoader(mids).forEach((middleware) => middlewares.unshift(middleware));
   }
 
-  return middlewares;
+  middlewares.forEach((middleware) => app.use(middleware));
 }
 
 function loadSettings(filepath) {
