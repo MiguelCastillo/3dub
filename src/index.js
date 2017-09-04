@@ -65,6 +65,10 @@ function getMiddlewares(app, options) {
         .on("change", filepath => {
           console.log(`File ${filepath} has been changed`);
           tinylr.changed(filepath);
+        })
+        .on("unlink", filepath => {
+          console.log(`File ${filepath} has been deleted`);
+          tinylr.changed(filepath);
         });
     }
   }
