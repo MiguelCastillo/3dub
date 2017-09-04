@@ -1,4 +1,5 @@
 const path = require("path");
+const utils = require("belty");
 const express = require("express");
 const bodyParser = require("body-parser");
 const fallback = require("connect-history-api-fallback");
@@ -26,6 +27,7 @@ function getMiddlewares(app, options) {
   var middlewares = [bodyParser.urlencoded({ extended: false }), bodyParser.json()];
   var root = path.join(process.cwd(), options.root || "public");
 
+  // Configure static directory with files to be served
   if (options.static !== false) {
     middlewares.unshift(express.static(root));
   }
@@ -37,24 +39,25 @@ function getMiddlewares(app, options) {
 
   // Liverealod and file watching!!
   if (options.livereload !== false) {
-    var client = Object.assign({port: 35729}, options.livereload, options.livereload ? options.livereload.client : {});
-    middlewares.unshift(livereload(client));
+    var livereloadPort = process.env.LR_PORT || 35729;
+    var client = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["server"]), options.livereload && options.livereload.client);
+    var server = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["client"]), options.livereload && options.livereload.server);
 
-    var server = Object.assign({port: 35729}, options.livereload, options.livereload ? options.livereload.server : {});
-    tinylr().listen(server.port, function() {
-      console.log("... Livereload listening on %s", server.port);
-    });
+    middlewares.unshift(livereload(client));
+    tinylr().listen(server.port, () => console.log("... Livereload listening on %s", server.port));
 
     if (options.watch !== false) {
-      if (options.watch === true) {
-        options = {};
+      var watchOptions = options.watch === true || !options.watch ? {} : options.watch;
+
+      if (typeof watchOptions === "string" || Array.isArray(watchOptions)) {
+        watchOptions = { files: watchOptions };
       }
 
-      var files = options.files || root;
+      var files = watchOptions.files || root;
       console.log("... Watching %s", files);
 
       chokidar
-        .watch(files, options)
+        .watch(files, utils.omit(watchOptions, ["files"]))
         .on("add", filepath => {
           console.log(`File ${filepath} has been added`);
           tinylr.changed(filepath);
