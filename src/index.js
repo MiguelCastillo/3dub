@@ -12,12 +12,12 @@ const pluginLoader = require("./pluginLoader");
 
 function start(options) {
   options = options || {};
-  var config = Object.assign({}, loadSettings(path.join(process.cwd(), options.config || ".serveup")), options);
+  var config = Object.assign({}, loadSettings(path.join(process.cwd(), options.config || ".3dub")), options);
   var port = process.env.PORT || config.port || 3000;
   var app = express();
   configureApp(app, config);
   app.listen(port);
-  console.log("... Servup listening on %s", port);
+  console.log("... 3dub listening on %s", port);
   return app;
 }
 
