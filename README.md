@@ -1,2 +1,2 @@
-# serveup
-Development server based on express with livereload for SPA
+# 3dub
+www dev server with livereload.
