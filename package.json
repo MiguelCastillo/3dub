@@ -1,5 +1,5 @@
 {
-  "name": "serveup",
+  "name": "3dub",
   "version": "0.0.1",
   "description": "www dev server based on express with livereload for SPA",
   "main": "index.js",
@@ -7,18 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "serveup": "bin/cli.js"
+    "3dub": "bin/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MiguelCastillo/serveup.git"
+    "url": "git+https://github.com/MiguelCastillo/3dub.git"
   },
   "author": "Miguel Castillo <manchagnu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MiguelCastillo/serveup/issues"
+    "url": "https://github.com/MiguelCastillo/3dub/issues"
   },
-  "homepage": "https://github.com/MiguelCastillo/serveup#readme",
+  "homepage": "https://github.com/MiguelCastillo/3dub#readme",
   "dependencies": {
     "belty": "^5.1.0",
     "body-parser": "^1.17.2",
