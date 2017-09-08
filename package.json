@@ -1,7 +1,7 @@
 {
   "name": "3dub",
   "version": "0.0.1",
-  "description": "www dev server based on express with livereload for SPA",
+  "description": "www dev server with livereload",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
