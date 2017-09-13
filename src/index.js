@@ -42,7 +42,7 @@ function configureApp(app, options) {
 
   // Liverealod and file watching!!
   if (options.livereload !== false) {
-    var livereloadPort = process.env.LR_PORT || isInteger(options) ? options : 35729;
+    var livereloadPort = process.env.LR_PORT ? process.env.LR_PORT : isInteger(options.livereload) ? options.livereload : 35729;
     var client = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["server"]), options.livereload && options.livereload.client);
     var server = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["client"]), options.livereload && options.livereload.server);
 
