@@ -10,9 +10,16 @@ const url = require("url");
 const chokidar = require("chokidar");
 const pluginLoader = require("./pluginLoader");
 
+const homeDirectory = process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
+
 function start(options) {
   options = options || {};
-  var config = Object.assign({}, loadSettings(path.join(process.cwd(), options.config || ".3dub")), options);
+
+  var config = Object.assign({},
+    loadSettings(path.join(homeDirectory, ".3dub")),
+    loadSettings(path.join(process.cwd(), options.config || ".3dub")),
+    options);
+
   var port = process.env.PORT || config.port || 3000;
   var app = express();
   configureApp(app, config);
