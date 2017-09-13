@@ -18,12 +18,20 @@ www dev server with livereload and file watching for developing Single Page Appl
 
 ### Hello world
 
-This setup will quickly walk you through starting up a server with ZERO configuration. This will server up files found in the `plubic` directory relative to where you start 3dub from, it will monitor files being served, and when they change livereload will do it works.
+This setup will quickly walk you through starting up a server with ZERO configuration (all default settings). Serve up static assets, monitor them and when they change, livereload will refresh the browser where you are viewing your application.
 
 #### install 3dub globally
 
 ```
 $ npm install 3dub -g
+```
+
+#### create public folder
+
+By default, 3dub serves up static assets from a directory called `public` relative where 3dub starts from. So let's go ahead and create one if one does not already exist. All your code goes in there.
+
+```
+$ mkdir public
 ```
 
 #### start 3dub
@@ -32,10 +40,16 @@ $ npm install 3dub -g
 $ 3dub
 ```
 
-That's it. Now you have a dev server up and running.
+#### view in the browser
+
+```
+$ open http://localhost:3000
+```
 
 
 ### Custom port via configuration file
+
+Adding a configuration for 3dub is a way to customize default settings. Generally, you will create configuration files wherever you expect to start 3dub from.
 
 #### configure 3dub
 
