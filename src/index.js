@@ -2,7 +2,7 @@ const path = require("path");
 const utils = require("belty");
 const express = require("express");
 const bodyParser = require("body-parser");
-const fallback = require("connect-history-api-fallback");
+const history = require("connect-history-api-fallback");
 const livereload = require("connect-livereload");
 const tinylr = require("tiny-lr");
 const proxy = require("node-proxy-middleware");
@@ -33,18 +33,16 @@ function configureApp(app, options) {
   var root = path.join(process.cwd(), options.root || "public");
 
   // Configure static directory with files to be served
-  if (options.static !== false) {
-    middlewares.unshift(express.static(root));
-  }
+  middlewares.unshift(express.static(root));
 
-  // Configure fallback to handle SPA configurations
-  if (options.fallback !== false) {
-    middlewares.unshift(fallback(options.fallback));
+  // Configure history to handle SPA configurations
+  if (options.history !== false) {
+    middlewares.unshift(history(options.history));
   }
 
   // Liverealod and file watching!!
   if (options.livereload !== false) {
-    var livereloadPort = process.env.LR_PORT || 35729;
+    var livereloadPort = process.env.LR_PORT || isInteger(options) ? options : 35729;
     var client = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["server"]), options.livereload && options.livereload.client);
     var server = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["client"]), options.livereload && options.livereload.server);
 
@@ -108,6 +106,10 @@ function configureProxy(route, destination) {
   var options = url.parse(destination);
   options.route = route;
   return proxy(options);
+}
+
+function isInteger(value) {
+  return typeof value === "number" && Math.floor(value) === value;
 }
 
 module.exports = start;
