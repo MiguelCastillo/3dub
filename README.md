@@ -75,7 +75,11 @@ $ 3dub
 The default name of your configuration is `.3dub.json` for JSON and `.3dub.js` for JavaScript. You can alternatively create a `.3dub` directory with an `index.js` that contains your settings.
 
 
-### Options
+### Options (Configuration file and CLI)
+
+> CLI only supports subarg notation when working complex object.
+
+- `config` (string) Configuration file name to load. By default it will load `.3dub.json` and `.3dub.js` files or `.3dub` directory with an `index.js` file in it. **CLI only**
 
 - `port` (number) port to for the server to listen on for incoming requests. Defaults to `3000`.
 
