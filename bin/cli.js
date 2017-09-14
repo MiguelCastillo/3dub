@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 const Type = require("./type");
+const camelcaseKeys = require("camelcase-keys");
 const argv = require("subarg")(process.argv.slice(2));
 
-var options = Type.coerceValues(camelKeys(argv), {
+var options = Type.coerceValues(camelcaseKeys(argv, { deep: true }), {
   "config": Type.String,
   "port": Type.Number,
   "root": Type.String,
@@ -14,24 +15,11 @@ var options = Type.coerceValues(camelKeys(argv), {
   "middlewares": Type.Array.withTransform(toArray)
 });
 
-require("../src/index")(options);
-
-function camelKeys(args) {
-  var result;
-
-  if (args && args.constructor === Object) {
-    result = {};
-    Object.keys(args).forEach(arg => result[toCamel(arg)] = camelKeys(args[arg]));
-  }
-  else if (Array.isArray(args)) {
-    result = args.map(camelKeys);
-  }
-
-  return result || args;
+if (options.test) {
+  console.log(JSON.stringify(options));
 }
-
-function toCamel(name) {
-  return name.replace(/\-(\w)/g, (match, value) => value.toUpperCase());
+else {
+  require("../src/index")(options);
 }
 
 function toArray(value) {
