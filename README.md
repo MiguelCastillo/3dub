@@ -10,9 +10,10 @@ www dev server with livereload and file watching for developing Single Page Appl
 3. Livereload when watched files change
     - Starts its own livereload server
     - Automatically inject livereload into your application
-4. SSL support with the ability to auto generate self signed certs
-5. Proxy settings with socket support
-6. Built on top of battle tested tools such as [Express](https://expressjs.com/), [chokidar](https://github.com/paulmillr/chokidar), [tiny-lr](https://github.com/mklabs/tiny-lr), and more.
+4. Https and Http2 support
+5. Auto generation of self signed certs
+6. Proxy settings with socket support
+7. Built on top of battle tested tools such as [Express](https://expressjs.com/), [chokidar](https://github.com/paulmillr/chokidar), [tiny-lr](https://github.com/mklabs/tiny-lr), and more.
 
 
 ## Examples
