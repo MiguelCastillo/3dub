@@ -22,21 +22,23 @@ const homeDirectory = process.env[(process.platform === "win32") ? "USERPROFILE"
 function start(options) {
   options = options || {};
 
-  var config = Object.assign({},
+  const config = Object.assign({},
     loadSettings(path.join(homeDirectory, ".3dub")),
     loadSettings(path.join(process.cwd(), options.config || ".3dub")),
     options);
 
-  var port = process.env.PORT || config.port || 3000;
-  var app = express();
-  configureApp(app, config);
+  const port = process.env.PORT || config.port || 3000;
+  const app = express();
 
   switch(config.mode) {
     case "https": {
-      https.createServer(configureSsl(config), app).listen(port);
+      const ssl = configureSsl(config);
+      configureApp(app, config, ssl);
+      https.createServer(ssl, app).listen(port);
       break;
     }
     default: {
+      configureApp(app, config);
       http.createServer(app).listen(port);
       break;
     }
@@ -45,7 +47,7 @@ function start(options) {
   console.log("... 3dub listening on %s", port);
 }
 
-function configureApp(app, options) {
+function configureApp(app, options, ssl) {
   var middlewares = [bodyParser.urlencoded({ extended: false }), bodyParser.json()];
   var root = path.join(process.cwd(), options.root || "public");
 
@@ -61,10 +63,14 @@ function configureApp(app, options) {
   if (options.livereload !== false) {
     var livereloadPort = process.env.LR_PORT ? process.env.LR_PORT : isInteger(options.livereload) ? options.livereload : 35729;
     var client = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["server"]), options.livereload && options.livereload.client);
-    var server = Object.assign({ port: livereloadPort }, utils.omit(options.livereload, ["client"]), options.livereload && options.livereload.server);
+    var server = Object.assign({ port: livereloadPort }, ssl, utils.omit(options.livereload, ["client"]), options.livereload && options.livereload.server);
 
+    // Wire in livereload middleware to inject the appropriate script
+    // tag in the index.html being served.
     middlewares.unshift(livereload(client));
-    tinylr().listen(server.port, () => console.log("... Livereload listening on %s", server.port));
+
+    // Start livereload server.
+    tinylr(server).listen(server.port, () => console.log("... Livereload listening on %s", server.port));
 
     if (options.watch !== false) {
       var watchOptions = options.watch === true || !options.watch ? {} : options.watch;
