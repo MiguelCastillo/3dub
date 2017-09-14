@@ -7,7 +7,7 @@ var options = Type.coerceValues(camelKeys(argv), {
   "config": Type.String,
   "port": Type.Number,
   "root": Type.String,
-  "livereload": Type.Any,
+  "livereload": Type.Any.withTransform(toBoolean),
   "history": Type.Any.withTransform(toBoolean),
   "watch": Type.Any.withTransform(toBoolean),
   "proxies": Type.Array.withTransform(toArray),
