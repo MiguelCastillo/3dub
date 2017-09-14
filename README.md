@@ -97,7 +97,7 @@ The default name of your configuration is `.3dub.json` for JSON and `.3dub.js` f
 
 - `middlewares` (array<string | object | array> | object) Option to define middlewares to be loaded. You can specify an array of middleware module names, you can also specify an object whose keys are the names of middleware modules and the values are the corresponding options for them. You can also specify middlewares using subarg notation, which is an array where the first item is the middleware module name and the second item are the options for it; e.g. ["middleware-module", options].
 
-- `mode` (string) configure what protocol to run. E.g. http or https. For https (SSL) mode, you must provide the pair `cert` and `key` or `pfx` and `passphrase`. If you do not provide either, a self signed certificate will be automatically generated for you.
+- `mode` (string) configure what protocol to run. E.g. http, https, or http2. For https and http2 mode, you must provide the pair `cert` and `key` or `pfx` and `passphrase`. If you do not provide either, a self signed certificate will be automatically generated for you.
 
 - `cert` (string) When using https, the cert option is for specifying the file path to the certificate file to be used by the server.
 
