@@ -32,6 +32,7 @@
     "express": "^4.15.4",
     "node-proxy-middleware": "^0.15.2",
     "resolve": "^1.4.0",
+    "selfsigned": "^1.10.1",
     "subarg": "^1.0.0",
     "tiny-lr": "^1.0.5"
   }

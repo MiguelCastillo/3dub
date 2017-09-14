@@ -14,6 +14,7 @@ const pluginLoader = require("./pluginLoader");
 // Supported protocols
 const http = require("http");
 const https = require("https");
+const selfsigned = require("selfsigned");
 
 const homeDirectory = process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
 
@@ -142,6 +143,16 @@ function configureSsl(config) {
       key: fs.readFileSync(config.key)
     };
   }
+
+  // Auto generate self signed ssl cert if one isn't provided.
+  var attrs = [{ name: "commonName", value: "localhost" }];
+  var pems = selfsigned.generate(attrs, { days: 365 });
+  console.warn("Using auto generated ssl self signed certificate");
+
+  return {
+    cert: pems.cert,
+    key: pems.private
+  };
 }
 
 module.exports = start;
