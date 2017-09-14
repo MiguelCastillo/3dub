@@ -19,7 +19,7 @@
     "url": "https://github.com/MiguelCastillo/3dub/issues"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=4.8.0"
   },
   "homepage": "https://github.com/MiguelCastillo/3dub#readme",
   "dependencies": {
