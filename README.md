@@ -10,9 +10,10 @@ www dev server with livereload and file watching for developing Single Page Appl
 3. Livereload when watched files change
     - Starts its own livereload server
     - Automatically inject livereload into your application
-4. SSL support with the ability to auto generate self signed certs
-5. Proxy settings with socket support
-6. Built on top of battle tested tools such as [Express](https://expressjs.com/), [chokidar](https://github.com/paulmillr/chokidar), [tiny-lr](https://github.com/mklabs/tiny-lr), and more.
+4. Https and Http2 support
+5. Auto generation of self signed certs
+6. Proxy settings with socket support
+7. Built on top of battle tested tools such as [Express](https://expressjs.com/), [chokidar](https://github.com/paulmillr/chokidar), [tiny-lr](https://github.com/mklabs/tiny-lr), and more.
 
 
 ## Examples
@@ -96,7 +97,7 @@ The default name of your configuration is `.3dub.json` for JSON and `.3dub.js` f
 
 - `middlewares` (array<string | object | array> | object) Option to define middlewares to be loaded. You can specify an array of middleware module names, you can also specify an object whose keys are the names of middleware modules and the values are the corresponding options for them. You can also specify middlewares using subarg notation, which is an array where the first item is the middleware module name and the second item are the options for it; e.g. ["middleware-module", options].
 
-- `mode` (string) configure what protocol to run. E.g. http or https. For https (SSL) mode, you must provide the pair `cert` and `key` or `pfx` and `passphrase`. If you do not provide either, a self signed certificate will be automatically generated for you.
+- `mode` (string) configure what protocol to run. E.g. http, https, or http2. For https and http2 mode, you must provide the pair `cert` and `key` or `pfx` and `passphrase`. If you do not provide either, a self signed certificate will be automatically generated for you.
 
 - `cert` (string) When using https, the cert option is for specifying the file path to the certificate file to be used by the server.
 

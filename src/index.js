@@ -14,6 +14,7 @@ const pluginLoader = require("./pluginLoader");
 // Supported protocols
 const http = require("http");
 const https = require("https");
+const spdy = require("spdy");
 const selfsigned = require("selfsigned");
 
 const homeDirectory = process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
@@ -21,6 +22,7 @@ const homeDirectory = process.env[(process.platform === "win32") ? "USERPROFILE"
 
 function start(options) {
   options = options || {};
+  var sslConfig;
 
   const config = Object.assign({},
     loadSettings(path.join(homeDirectory, ".3dub")),
@@ -31,20 +33,29 @@ function start(options) {
   const app = express();
 
   switch(config.mode) {
+    case "http2": {
+      console.log("Mode http2");
+      sslConfig = configureSsl(config);
+      configureApp(app, config, sslConfig);
+      spdy.createServer(Object.assign({}, { spdy: config.spdy }, sslConfig), app).listen(port);
+      break;
+    }
     case "https": {
-      const ssl = configureSsl(config);
-      configureApp(app, config, ssl);
-      https.createServer(ssl, app).listen(port);
+      console.log("Mode https");
+      sslConfig = configureSsl(config);
+      configureApp(app, config, sslConfig);
+      https.createServer(sslConfig, app).listen(port);
       break;
     }
     default: {
+      console.log("Mode http");
       configureApp(app, config);
       http.createServer(app).listen(port);
       break;
     }
   }
 
-  console.log("... 3dub listening on %s", port);
+  console.log("3dub listening on %s", port);
 }
 
 function configureApp(app, options, ssl) {
@@ -70,7 +81,7 @@ function configureApp(app, options, ssl) {
     middlewares.unshift(livereload(client));
 
     // Start livereload server.
-    tinylr(server).listen(server.port, () => console.log("... Livereload listening on %s", server.port));
+    tinylr(server).listen(server.port, () => console.log("Livereload listening on %s", server.port));
 
     if (options.watch !== false) {
       var watchOptions = options.watch === true || !options.watch ? {} : options.watch;
@@ -80,7 +91,7 @@ function configureApp(app, options, ssl) {
       }
 
       var files = watchOptions.files || root;
-      console.log("... Watching %s", files);
+      console.log("Watching %s", files);
 
       chokidar
         .watch(files, utils.omit(watchOptions, ["files"]))
