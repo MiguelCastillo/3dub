@@ -123,3 +123,9 @@ Install globally so that you can start 3dub from anywhere via CLI.
 ```
 $ npm install 3dub -g
 ```
+
+## Requirements
+
+For http2 to work as expected, nodejs 4.8.0 and above is required. This is because ALPN was added in that version of node which is required by browsers like Chrome to properly negotiate the protocol.
+
+https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V4.md#2017-02-21-version-480-argon-lts-mylesborins
