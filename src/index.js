@@ -8,9 +8,15 @@ const tinylr = require("tiny-lr");
 const proxy = require("node-proxy-middleware");
 const url = require("url");
 const chokidar = require("chokidar");
+const fs = require("fs");
 const pluginLoader = require("./pluginLoader");
 
+// Supported protocols
+const http = require("http");
+const https = require("https");
+
 const homeDirectory = process.env[(process.platform === "win32") ? "USERPROFILE" : "HOME"];
+
 
 function start(options) {
   options = options || {};
@@ -23,9 +29,19 @@ function start(options) {
   var port = process.env.PORT || config.port || 3000;
   var app = express();
   configureApp(app, config);
-  app.listen(port);
+
+  switch(config.mode) {
+    case "https": {
+      https.createServer(configureSsl(config), app).listen(port);
+      break;
+    }
+    default: {
+      http.createServer(app).listen(port);
+      break;
+    }
+  }
+
   console.log("... 3dub listening on %s", port);
-  return app;
 }
 
 function configureApp(app, options) {
@@ -110,6 +126,22 @@ function configureProxy(route, destination) {
 
 function isInteger(value) {
   return typeof value === "number" && Math.floor(value) === value;
+}
+
+function configureSsl(config) {
+  if (config.pfx) {
+    return {
+      passphrase: config.passphrase,
+      pfx: fs.readFileSync(config.pfx)
+    };
+  }
+
+  if (config.cert) {
+    return {
+      cert: fs.readFileSync(config.cert),
+      key: fs.readFileSync(config.key)
+    };
+  }
 }
 
 module.exports = start;
