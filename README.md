@@ -69,6 +69,28 @@ module.exports = {
 $ 3dub
 ```
 
+### CLI examples
+
+All options available for 3dub are for both the CLI and configuration files. Configuration files just makes some situations easier to work with as in the case of defining complex option object when defining middlewares.
+
+#### start 3dub with custom port
+
+```
+$ 3dub --port 4545
+```
+
+#### 3dub with root directory
+
+```
+$ 3dub --root dest
+```
+
+#### 3dub with http2 and custom port
+
+```
+$ 3dub --mode http2 --port 8443
+```
+
 
 ## Configuration
 
@@ -108,6 +130,11 @@ The default name of your configuration is `.3dub.json` for JSON and `.3dub.js` f
 - `pfx` (string) When using https, the pfx option is for specifying the file path for the pfx file to be used by the server.
 
 - `passphrase` (string) When using https, the passphrase option is required for opening the pfx file that will be used by the server.
+
+
+## Self signed certificates
+
+When running 3dub in https or http2 mode, you have the option to specify your own certificate. If one isn't provided, then 3dub will create its own self signed certificate and will log a warning. A self signed certificate is automatically created to make it really easy to get a dev server up and running. And... The self signed cerficate is not written to disk.
 
 
 ## Installation
