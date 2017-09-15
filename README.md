@@ -132,6 +132,11 @@ The default name of your configuration is `.3dub.json` for JSON and `.3dub.js` f
 - `passphrase` (string) When using https, the passphrase option is required for opening the pfx file that will be used by the server.
 
 
+## Self signed certificates
+
+When running 3dub in https or http2 mode, you have the option to specify your own certificate. If one isn't provided, then 3dub will create its own self signed certificate and will log a warning. A self signed certificate is automatically created to make it really easy to get a dev server up and running. And... The self signed cerficate is not written to disk.
+
+
 ## Installation
 
 Install via npm as a dev dependency, and configure an npm script to start the server. This is my preferred approach as it allows you to define the version of 3dub on a per project basis and also removes the need to install 3dub globally.
