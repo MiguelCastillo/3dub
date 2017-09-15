@@ -1,6 +1,6 @@
 {
   "name": "3dub",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "www dev server with livereload",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,16 @@
     "tiny-lr": "^1.0.5"
   },
   "keywords": [
-    "www", "http2", "h2", "cert", "ssl", "https", "dev", "livereload", "pfx", "web", "watch"
+    "www",
+    "http2",
+    "h2",
+    "cert",
+    "ssl",
+    "https",
+    "dev",
+    "livereload",
+    "pfx",
+    "web",
+    "watch"
   ]
 }
