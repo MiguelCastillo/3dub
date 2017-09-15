@@ -37,5 +37,8 @@
     "spdy": "^3.4.7",
     "subarg": "^1.0.0",
     "tiny-lr": "^1.0.5"
-  }
+  },
+  "keywords": [
+    "www", "http2", "h2", "cert", "ssl", "https", "dev", "livereload", "pfx", "web", "watch"
+  ]
 }
