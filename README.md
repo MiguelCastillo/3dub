@@ -69,6 +69,28 @@ module.exports = {
 $ 3dub
 ```
 
+### CLI examples
+
+All options available for 3dub are for both the CLI and configuration files. Configuration files just makes some situations easier to work with as in the case of defining complex option object when defining middlewares.
+
+#### start 3dub with custom port
+
+```
+$ 3dub --port 4545
+```
+
+#### 3dub with root directory
+
+```
+$ 3dub --root dest
+```
+
+#### 3dub with http2 and custom port
+
+```
+$ 3dub --mode http2 --port 8443
+```
+
 
 ## Configuration
 
