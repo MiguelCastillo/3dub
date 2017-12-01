@@ -4,7 +4,6 @@
   "description": "www dev server with livereload",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
     "3dub": "bin/cli.js"
