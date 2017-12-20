@@ -1,10 +1,9 @@
 {
   "name": "3dub",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "www dev server with livereload",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "bin": {
     "3dub": "bin/cli.js"
   },
