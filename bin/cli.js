@@ -15,6 +15,10 @@ var options = Type.coerceValues(camelcaseKeys(argv, { deep: true }), {
   "middlewares": Type.Array.withTransform(toArray)
 });
 
+if (options._.length && !options.root) {
+  options.root = options._[0];
+} 
+
 if (options.test) {
   console.log(JSON.stringify(options));
 }
