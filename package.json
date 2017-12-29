@@ -24,7 +24,7 @@
     "belty": "^5.1.0",
     "body-parser": "^1.17.2",
     "camelcase-keys": "^4.1.0",
-    "chokidar": "^1.7.0",
+    "chokidar": "^2.0.0",
     "connect-history-api-fallback": "^1.3.0",
     "connect-livereload": "^0.6.0",
     "dis-isa": "^1.3.0",
