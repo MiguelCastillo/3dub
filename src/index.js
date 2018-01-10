@@ -59,6 +59,7 @@ function start(options) {
 }
 
 function configureApp(app, options, ssl) {
+  var logger = createLogger(options);
   var middlewares = [bodyParser.urlencoded({ extended: false }), bodyParser.json()];
   var root = path.join(process.cwd(), options.root || "public");
 
@@ -96,20 +97,20 @@ function configureApp(app, options, ssl) {
       }
 
       var files = watchOptions.files || root;
-      console.log("Watching %s", files);
+      logger("Watching %s", files);
 
       chokidar
         .watch(files, utils.omit(watchOptions, ["files"]))
         .on("add", filepath => {
-          console.log(`File ${filepath} has been added`);
+          logger(`File ${filepath} has been added`);
           tinylr.changed(filepath);
         })
         .on("change", filepath => {
-          console.log(`File ${filepath} has been changed`);
+          logger(`File ${filepath} has been changed`);
           tinylr.changed(filepath);
         })
         .on("unlink", filepath => {
-          console.log(`File ${filepath} has been deleted`);
+          logger(`File ${filepath} has been deleted`);
           tinylr.changed(filepath);
         });
     }
@@ -175,6 +176,14 @@ function configureSsl(config) {
     cert: pems.cert,
     key: pems.private
   };
+}
+
+function createLogger(options) {
+  return function() {
+    if (options.log !== false) {
+      console.log.apply(console, arguments);
+    }
+  }
 }
 
 module.exports = start;

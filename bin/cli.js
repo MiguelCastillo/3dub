@@ -12,7 +12,8 @@ var options = Type.coerceValues(camelcaseKeys(argv, { deep: true }), {
   "history": Type.Any.withTransform(toBoolean),
   "watch": Type.Any.withTransform(toBoolean),
   "proxies": Type.Array.withTransform(toArray),
-  "middlewares": Type.Array.withTransform(toArray)
+  "middlewares": Type.Array.withTransform(toArray),
+  "log": Type.Boolean.withTransform(toBoolean)
 });
 
 if (options._.length && !options.root) {
