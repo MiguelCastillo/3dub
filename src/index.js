@@ -67,6 +67,11 @@ function configureApp(app, options, ssl) {
 
   // Configure history to handle SPA configurations
   if (options.history !== false) {
+    if (typeof options.history === "string") {
+      options.history = {
+        index: options.history
+      };
+    }
     middlewares.unshift(history(options.history));
   }
 
