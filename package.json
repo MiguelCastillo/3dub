@@ -1,6 +1,6 @@
 {
   "name": "3dub",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "www dev server with livereload",
   "main": "index.js",
   "scripts": {},
