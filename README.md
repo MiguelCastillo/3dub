@@ -107,6 +107,8 @@ The default name of your configuration is `.3dub.json` for JSON and `.3dub.js` f
 
 - `config` (string) Configuration file name to load. By default it will load `.3dub.json` and `.3dub.js` files or `.3dub` directory with an `index.js` file in it. **CLI only**
 
+- `log` (boolean) flag to disable logging of noisy messages. Defaults to `true`.
+
 - `port` (number) port to for the server to listen on for incoming requests. Defaults to `3000`.
 
 - `root` (string) path to serve files from. Defaults to `public`.
