@@ -32,7 +32,7 @@
     "node-proxy-middleware": "^0.15.2",
     "resolve": "^1.4.0",
     "selfsigned": "^1.10.1",
-    "spdy": "^4.0.0",
+    "spdy": "^4.0.2",
     "subarg": "^1.0.0",
     "tiny-lr": "^1.0.5"
   },
